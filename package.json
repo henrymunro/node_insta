@@ -1,0 +1,23 @@
+{
+  "name": "instagram-scraper",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "scrape": "node app/index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "async": "^2.4.1",
+    "bluebird": "^3.5.0",
+    "dotenv": "^4.0.0",
+    "express-winston": "^2.4.0",
+    "fs": "0.0.1-security",
+    "joi": "^10.6.0",
+    "selenium-webdriver": "^3.4.0",
+    "winston": "^2.3.1",
+    "winston-daily-rotate-file": "^1.4.6"
+  }
+}
