@@ -99,7 +99,9 @@ module.exports = ({driver, By, until, promise}) => {
 			// Loops over each field required
 			const imageInfoPromises = ['username'].map(elm => _getFieldInfo(elm))
 
-			Promise.all([...imageInfoPromises, _getDate(), _getImage()]).then(imageInfo => {
+			Promise.all([...imageInfoPromises, _getDate(), _getImage()]).then(imageInfoArrays => {
+				let imageInfo = {}
+				imageInfoArrays.map(elm => {imageInfo = Object.assign({}, imageInfo, elm)})
 				logger.silly('Got image info', imageInfo)
 				resolve(imageInfo)
 			}).catch(err => reject(err))

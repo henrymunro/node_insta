@@ -111,7 +111,7 @@ const likePhotosByUser = ({username, probability=0.5, count=10}) => {
 	return new Promise((resolveUsernameSearch, rejectUsernameSearch) => {
 		logger.info('Starting to like by username' , {username, probability, count})
 		searchUsername(username)	
-			.then(() => openFirstImage(11))		
+			.then(() => openFirstImage())		
 			.then(({userHasNoImages}) => {
 				// Check to make sure user has uploaded photos before trying to like
 				if (userHasNoImages) {
