@@ -5,17 +5,19 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "scrape": "node app/index.js"
+    "scrape": "node app/insta_scrape/index.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "async": "^2.4.1",
     "bluebird": "^3.5.0",
+    "bson": "^1.0.4",
     "dotenv": "^4.0.0",
     "express-winston": "^2.4.0",
     "fs": "0.0.1-security",
     "joi": "^10.6.0",
+    "mongoose": "^4.10.6",
     "selenium-webdriver": "^3.4.0",
     "underscore": "^1.8.3",
     "winston": "^2.3.1",

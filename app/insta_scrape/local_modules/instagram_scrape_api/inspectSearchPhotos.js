@@ -5,7 +5,7 @@
  */
 
 const config = require('../../config').searchPhotos
-const {logger, logError} = require('../../logger')
+const {logger, logError} = require('../../../global_modules/logger')
 
 module.exports = ({driver, By, until, promise}) => {
 

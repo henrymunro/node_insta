@@ -2,8 +2,14 @@
 require('dotenv').config({})
 
 // Import specific config
+const database = require('./database')
 const login = require('./login')
 const searchPhotos = require('./searchPhotos')
 const server = require('./server')
 
-module.exports = Object.assign({}, login, searchPhotos, server)
+module.exports = Object.assign({}, 
+	database, 
+	login, 
+	searchPhotos, 
+	server
+	)

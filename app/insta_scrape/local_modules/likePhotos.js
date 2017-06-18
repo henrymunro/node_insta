@@ -1,10 +1,10 @@
-const {logger} = require('../logger')
+const {logger} = require('../../global_modules/logger')
 const mapLimit = require('async/mapLimit')
 
 const { searchHashtag, searchUsername, inspectSearchPhotos } = require('./instagram_scrape_api')
 const { openFirstImage, checkIfImageIsLiked, likeImage, moveToTheNextImage } = inspectSearchPhotos
 
-
+const { databaseApi } = require('../../global_modules/database')
 
 const _likePhoto = () => {
 		return checkIfImageIsLiked()
@@ -15,8 +15,7 @@ const _likePhoto = () => {
 			})
 	}
 
-const _likePhotos = (count, probability) => {
-	
+const _likePhotos = ({count, probability, type, hashtag, runID, username}) => {	
 
 	const _proccessLike = callback => {
 		logger.debug('Random criteria met, starting process to like photo')
@@ -25,6 +24,7 @@ const _likePhotos = (count, probability) => {
 		return _likePhoto().then((imageDetailsReturned) => {
 			// pulls out image details then moves to next image
 			imageDetails = imageDetailsReturned
+			databaseApi.applicationInfo.savePhotoLike({runID, imageDetails, username, hashtag, type})
 			return moveToTheNextImage()
 		}).then(({nextPhotoArrowDoesNotExist}) => {
 			// stores image details and return bool value stating 
@@ -36,6 +36,7 @@ const _likePhotos = (count, probability) => {
 
 	const _moveToNextImageWithoutLike = callback => {
 		logger.info('NO DICE!')
+		databaseApi.applicationInfo.incrementImageInspectCount({type, hashtag, username, runID})
 		return moveToTheNextImage()
 			.then(({nextPhotoArrowDoesNotExist}) => {
 				callback()
@@ -92,12 +93,12 @@ const _rollDice = (probability) => {
 
 
 
-const likePhotosByHashtag = ({hashtag, probability=0.8, count=50}) => {
+const likePhotosByHashtag = ({hashtag, probability=0.8, count=50, runID}) => {
 	return new Promise((resolveHashtagSearch, rejectHashtagSearch) => {
 		logger.info('Starting to like by hashtag' , {hashtag, probability, count})
 		searchHashtag(hashtag)	
 			.then(() => openFirstImage(9))		
-			.then(() => _likePhotos(count, probability))
+			.then(() => _likePhotos({count, probability, runID, hashtag, type: 'hashtag'}))
 			.then(result => resolveHashtagSearch(result))
 			.catch(err => {
 				logger.error(`Error liking by hashtag: ${err}`)
@@ -107,7 +108,7 @@ const likePhotosByHashtag = ({hashtag, probability=0.8, count=50}) => {
 	})
 }
 
-const likePhotosByUser = ({username, probability=0.5, count=10}) => {
+const likePhotosByUser = ({username, probability=0.5, count=10, runID, hashtag}) => {
 	return new Promise((resolveUsernameSearch, rejectUsernameSearch) => {
 		logger.info('Starting to like by username' , {username, probability, count})
 		searchUsername(username)	
@@ -118,7 +119,7 @@ const likePhotosByUser = ({username, probability=0.5, count=10}) => {
 					logger.info('User has no images therefore skipping')
 					return {}
 				} else {
-					return _likePhotos(count, probability)
+					return _likePhotos({count, probability, username, runID, hashtag, type: 'user'})
 				}
 			})
 			.then(result => resolveUsernameSearch(result))

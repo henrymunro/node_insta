@@ -4,7 +4,7 @@ const fs = require('fs')
 const logDir = 'logs'
 const appName = 'instagram_scraper'
 const Promise = require('bluebird')
-const config = require('./config')
+const config = require('../insta_scrape/config')
 
 // Create the log directory if it does not exist
 if (!fs.existsSync(logDir)) {
