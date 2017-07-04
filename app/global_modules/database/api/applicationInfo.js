@@ -13,8 +13,12 @@ const logNewRun = ({hashtags}) => {
 		logger.silly('Logging new run to database', hashtags)
 		// add _id to each hashtag
 		let hashtagsWithID = hashtags.map(elm => Object.assign({}, elm, {_id: new ObjectID()}))
+		// Calculate total
+		const totalToLike = hashtags.reduce((acc, val)  => {
+			return acc + val.count + (val.userCount * val.userPhotoCount)
+		}, 0)
 		// Save entry to DB
-		const newEntry = new ApplicationInfoModel({hashtags: hashtagsWithID})
+		const newEntry = new ApplicationInfoModel({hashtags: hashtagsWithID, totalToLike})
 		newEntry.save((err, entry) => {
 			if (err) {
 				logger.error('Error saving new application run details to DB' , {err})
@@ -23,6 +27,36 @@ const logNewRun = ({hashtags}) => {
 				logger.silly('New application run details saved to DB', {entry})
 				resolve({runID: entry._id})
 			}
+		})
+	})
+}
+
+const logError = ({runID}) => {
+	logger.silly('Logging application error in DB' , {runID})
+	ApplicationInfoModel.findById({_id: runID}, (err, entry) => {
+		if ( err ) { 
+			return logger.error('Error logging application error in DB', err)
+		} 
+		Object.assign(entry, {error: true}).save((err, entry) => {
+			if (err) {
+				logger.error('Error logging application error in DB', err)
+			}
+			logger.silly('Logged application error to the database')
+		})
+	})
+}
+
+const logRunComplete = ({runID}) => {
+	logger.silly('Logging application error in DB' , {runID})
+	ApplicationInfoModel.findById({_id: runID}, (err, entry) => {
+		if ( err ) { 
+			return logger.error('Error logging application error in DB', err)
+		} 
+		Object.assign(entry, {finishTime: new Date()}).save((err, entry) => {
+			if (err) {
+				logger.error('Error logging application error in DB', err)
+			}
+			logger.silly('Logged application error to the database')
 		})
 	})
 }
@@ -182,6 +216,8 @@ const incrementImageInspectCount = ({type, hashtag, username, runID}) => {
 
 module.exports = { 
 	logNewRun, 
+	logError,
+	logRunComplete,
 	savePhotoLike, 
-	incrementImageInspectCount
+	incrementImageInspectCount,
 }

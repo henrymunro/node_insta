@@ -27,6 +27,7 @@ const scrapeHashtags = ({hashtags}) => {
 				})			
 		}).catch(err => {
 			logger.error('Error runing scrape', err)
+			databaseApi.applicationInfo.logError({runID})
 			quitBrowser()
 			throw new Error(err)
 		})
@@ -37,7 +38,6 @@ const scrapeHashtags = ({hashtags}) => {
 			mapLimit(_.shuffle(hashtags), 1, (hashtag, callback)=> {
 				likePhotosByHashtag(Object.assign({} , hashtag, {runID}))
 				.then(result => { 
-					console.log('RESULT: ', result)
 					const {userCount, userProbability, userPhotoCount } = hashtag
 					return _loopOverUsers({usernames: result, count: userCount, hashtag: hashtag.hashtag, userProbability, userPhotoCount})
 				}).then(result => {
@@ -49,6 +49,7 @@ const scrapeHashtags = ({hashtags}) => {
 					reject()
 				} else {
 					logger.info('Finished looping over hashtags')
+					databaseApi.applicationInfo.logRunComplete({runID})
 					resolve()
 				}
 			})
