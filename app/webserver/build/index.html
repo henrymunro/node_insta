@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta id="meta" name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta property="og:image" content="http://boysonbikesworldwide.com/images/dadAirport.jpg" />
+    <title>Boys On Bikes</title>
+  
+     <!--Import Google Icon Font-->
+    <link type='text/css' href="styles/materaial-icon.css" rel="stylesheet">
+    <link rel="apple-touch-icon" href="images/me.jpg"/>
+    <!-- App style sheet -->
+    <!-- <link type="text/css" rel="stylesheet" href="styles.css"  media="screen,projection"/> -->
+    <link type="text/css" rel="stylesheet" href="styles/materialize.min.css"  media="screen,projection">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+    
+  </head>
+
+  <body>
+   <style>
+     .loading-body {
+      height: 100vh;
+      width: 100vw;
+      background: rgb(0,0,0);
+      background: rgba(0,0,0,0.9);
+      color: white;
+    }
+    .loading-center{
+      width: 100%;
+    }
+    .loading-heading {
+      margin-bottom: 20px;
+    }
+    .loading-progress {
+      padding-left: 10%;
+      padding-right: 10%;
+    }
+
+     .progress {
+      background-color: rgb(97,97,97);
+    }
+    /*.progress .indeterminate {
+      background-color: rgb(250,250,250);
+    }*/
+  </style>
+
+    <div id="app">      
+      <div class='loading-body valign-wrapper'>
+        <div class='loading-center'>
+          <div class="center-align">
+            <h5 class='loading-heading'>Hopefully it's worth the wait ...</h5>
+            <div class="loading-progress">
+              <div class="progress">
+                <div class="indeterminate"></div>
+              </div>          
+            </div>
+          </div>      
+        </div>
+      </div>
+    </div> 
+    <script type="application/javascript" src="app.min.js"></script>
+  </body>
+</html>

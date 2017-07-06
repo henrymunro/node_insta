@@ -8,7 +8,7 @@ const fields = {startTime: 1, updatedAt:1, totalToLike:1, inspected: 1, totalLik
 
 module.exports = function (apiRoute) {
   apiRoute.route(routeURI)
-.get((req, res, next) => appRoutes.getEntries(req, res, next, {limit: 1, sort: {startTime: -1}, fields }))
+.get((req, res, next) => appRoutes.getEntries(req, res, next, {limit: 1, sort: {startTime: -1} }))
 
   apiRoute.route(routeURI + '/:id')
 .get(appRoutes.getEntryByID)
