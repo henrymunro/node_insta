@@ -31,16 +31,13 @@ componentDidMount (){
 }
 
   render () {
-
-    console.log('LEFT: ', this.state.duration, this.props.currentPercentageDone, this.state.duration*((1/(this.props.currentPercentageDone/100)) - 1))
-
 	const tempTime = moment.duration(this.state.duration)
 	const hours =  ("0" + tempTime.hours()).slice(-2) 
 	const mins = ("0" + tempTime.minutes()).slice(-2)  
 	const seconds = ("0" + tempTime.seconds()).slice(-2) 
-    return <div>
-        <div>Start Time: <TimerDisplay timeMS={this.state.duration} /></div>
-        <div>Estimated Left: 
+    return <div className='row'>
+        <div className='col s6 m6 l6'>Start Time: <TimerDisplay timeMS={this.state.duration} /></div>
+        <div className='col s6 m6 l6'>Estimated Left: 
           <TimerDisplay timeMS={this.state.duration*((1/(this.props.currentPercentageDone/100)) - 1)} /> 
         </div>
     </div>

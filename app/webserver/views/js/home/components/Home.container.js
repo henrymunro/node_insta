@@ -13,7 +13,8 @@ import Hashtag from './Hashtag'
   return {
 
     currentRoute: ownProps.location.pathname,
-    currentAppInfo: selectors.getCurrentAppInfo(store)
+    currentAppInfo: selectors.getCurrentAppInfo(store),
+    currentPercentageDone: selectors.getCurrentPercentageDone(store)
   }
 }, Object.assign({}, actions))
 
@@ -35,9 +36,8 @@ export default class Home extends React.Component {
     const { currentAppInfo } = this.props
     const { hashtags } = currentAppInfo
 
-    return <div>
-      Hello
-      <AppStatus {...currentAppInfo} />
+    return <div className='container'>
+      <AppStatus {...currentAppInfo} percentageComplete={this.props.currentPercentageDone}/>
       <RunTimer/>
       {hashtags && hashtags.map((hashtag, key) => <Hashtag {...hashtag} key={key} />)}
     </div>
