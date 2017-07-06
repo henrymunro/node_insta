@@ -13,7 +13,7 @@ import { syncHistoryWithStore } from 'react-router-redux'
 import store from './appStore'
 
 
-import { Home } from './home'
+import { AppStatus } from './appStatus'
 
 injectTapEventPlugin()
 
@@ -24,7 +24,7 @@ const history = syncHistoryWithStore(browserHistory, store)
 ReactDOM.render(<Provider store={store}>
   <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
     <Router history={history}>
-      <Route path='/' component={Home} />
+      <Route path='/' component={AppStatus} />
     </Router>
   </MuiThemeProvider>
 </Provider>, app)

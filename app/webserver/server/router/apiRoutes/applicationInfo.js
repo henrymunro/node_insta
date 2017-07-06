@@ -4,7 +4,7 @@ const ApplicationInfoModel = require('./../../../../global_modules/database/mode
 const {apiRouteCreator} = require('./../../../../global_modules/express-mongo')
 const appRoutes = apiRouteCreator(ApplicationInfoModel)
 
-const fields = {startTime: 1, updatedAt:1, totalToLike:1, inspected: 1, totalLikes: 1, _id: 0}
+const fields = {startTime: 1, updatedAt:1, totalToLike:1, inspected: 1, totalLikes: 1, error: 1, _id: 0}
 
 module.exports = function (apiRoute) {
   apiRoute.route(routeURI)

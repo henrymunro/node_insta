@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux'
 import { routerReducer } from 'react-router-redux'
 
-import { reducer as home } from '../home'
+import { reducer as appStatus } from '../appStatus'
 
 export default combineReducers({
-  home,
+  appStatus,
   routing: routerReducer
 })

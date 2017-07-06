@@ -1,0 +1,1 @@
+export const GET_CURRENT_APP_INFO = 'GET_CURRENT_APP_INFO'
