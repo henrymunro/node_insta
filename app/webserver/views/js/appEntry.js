@@ -14,6 +14,7 @@ import store from './appStore'
 
 
 import { AppStatus } from './appStatus'
+import { NewAppRun } from './newAppRun'
 
 injectTapEventPlugin()
 
@@ -28,3 +29,4 @@ ReactDOM.render(<Provider store={store}>
     </Router>
   </MuiThemeProvider>
 </Provider>, app)
+      // <Route path='/' component={NewAppRun} />

@@ -9,4 +9,5 @@ export const api = axios.create({
 export const URLs = {
   // none admin
   currentAppInfo: '/app',
+  appRunDetails: '/appRunDetails'
 }

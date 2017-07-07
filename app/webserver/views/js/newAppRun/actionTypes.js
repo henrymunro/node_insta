@@ -1,0 +1,1 @@
+export const GET_APP_RUN_DETAILS = 'GET_APP_RUN_DETAILS'
