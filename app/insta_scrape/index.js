@@ -8,8 +8,8 @@ const hashtags = [
 	{
 		hashtag: 'travel', 
 		probability:0.9, 
-		count:_randNumGen(50, 70), 
-		userCount: _randNumGen(15, 25), 
+		count:5,//_randNumGen(50, 70), 
+		userCount: 0,//_randNumGen(15, 25), 
 		userProbability: 0.5, 
 		userPhotoCount: _randNumGen(6, 10)
 	},

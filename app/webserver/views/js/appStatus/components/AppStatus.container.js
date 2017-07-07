@@ -15,7 +15,8 @@ import Hashtag from './Hashtag'
     currentRoute: ownProps.location.pathname,
     currentAppInfo: selectors.getCurrentAppInfo(store),
     currentPercentageDone: selectors.getCurrentPercentageDone(store),
-    applicationRunError: selectors.getApplicationRunError(store)
+    applicationRunError: selectors.getApplicationRunError(store),
+    applicationRunDone: selectors.getApplicationRunDone(store)
   }
 }, Object.assign({}, actions))
 
@@ -33,19 +34,29 @@ export default class AppStatus extends React.Component {
     if (!this.props.applicationRunError && nextProps.applicationRunError) {
       clearInterval(this.interval)
     }
+
+    // If application run completed
+    if (!this.props.applicationRunDone && nextProps.applicationRunDone) {
+      clearInterval(this.interval)
+    } 
   }
 
   componentWillMount () {
     this.props.getCurrentAppInfo()
   }
 
+  componentWillUnmount () {
+    clearInterval(this.interval)
+  }
+
   render () {
 
-    const { currentAppInfo, applicationRunError } = this.props
+    const { currentAppInfo, applicationRunError, applicationRunDone } = this.props
     const { hashtags } = currentAppInfo
 
     return <div className='container'>
       {applicationRunError && <h3 style={{color: 'red'}}>AN ERROR HAS OCCOURED</h3>}
+      {applicationRunDone && <h3 style={{color: 'green'}}>FINISHED</h3>}
       <AppStatusOverview {...currentAppInfo} percentageComplete={this.props.currentPercentageDone}/>
       <RunTimer/>
       {hashtags && hashtags.map((hashtag, key) => <Hashtag {...hashtag} key={key} />)}

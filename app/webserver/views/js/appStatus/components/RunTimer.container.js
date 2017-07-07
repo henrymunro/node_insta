@@ -11,7 +11,8 @@ import TimerDisplay from './TimerDisplay'
   return {
     startTime: selectors.getStartTime(store),
     currentPercentageDone: selectors.getCurrentPercentageDone(store),
-    applicationRunError: selectors.getApplicationRunError(store)
+    applicationRunError: selectors.getApplicationRunError(store),
+    applicationRunDone: selectors.getApplicationRunDone(store)
   }
 }, Object.assign({}, actions))
 
@@ -34,6 +35,15 @@ export default class RunTimer extends React.Component {
     if (!this.props.applicationRunError && nextProps.applicationRunError) {
       clearInterval(this.interval)
     }
+
+     // If application run completed
+    if (!this.props.applicationRunDone && nextProps.applicationRunDone) {
+      clearInterval(this.interval)
+    } 
+  }
+
+  componentWillUnmount () {
+    clearInterval(this.interval)
   }
 
 
