@@ -114,13 +114,19 @@ module.exports = ({driver, By, until, promise}) => {
 	}	
 
 	const likeImage = () => {
-		// Likes the image
-		logger.info(config.enableLike ? 'Liking image!' : 'Dummy liking image')
-		config.enableLike && driver.findElement(By.className(config.paths.likeImageClass)).click()
+		return new Promise((resolve, reject) => {
+			try {
+				// Likes the image
+				logger.info(config.enableLike ? 'Liking image!' : 'Dummy liking image')
+				config.enableLike && driver.findElement(By.className(config.paths.likeImageClass)).click()
+			} catch (err) {
+				return reject(err)
+			}
 
-		// Pull back the image info for the db
-		logger.silly('Pulling back image info')
-		return _getImageInfo()
+			// Pull back the image info for the db
+			logger.silly('Pulling back image info')
+			resolve(_getImageInfo())
+		})
 	}
 
 	const moveToTheNextImage = () => {

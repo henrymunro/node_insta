@@ -47,3 +47,5 @@ const total = hashtags.reduce((acc, val)  => {
 console.log(`TOTAL TO INSPECT: ${total}`)
 
 scrapeHashtags({hashtags})
+
+module.exports = scrapeHashtags

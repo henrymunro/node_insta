@@ -5,6 +5,7 @@ const Schema = mongoose.Schema
 module.exports = mongoose.model('ApplicationInfo', new Schema({
   hashtags: [],
   finishTime: {type: Date},
+  done: {type: Boolean, default: false},
   totalToLike: {type: Number},
   error: { type: Boolean, default: false }, 
   totalLikes: { type: Number, default: 0 }, 

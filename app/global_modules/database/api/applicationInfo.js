@@ -52,7 +52,7 @@ const logRunComplete = ({runID}) => {
 		if ( err ) { 
 			return logger.error('Error logging application error in DB', err)
 		} 
-		Object.assign(entry, {finishTime: new Date()}).save((err, entry) => {
+		Object.assign(entry, {finishTime: new Date(), done: true}).save((err, entry) => {
 			if (err) {
 				logger.error('Error logging application error in DB', err)
 			}
