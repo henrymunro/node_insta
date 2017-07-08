@@ -48,7 +48,7 @@ const hashtags = [
 ]
 
 
-scrapeHashtags({hashtags})
+// scrapeHashtags({hashtags})
 
 module.exports = {
 	scrapeHashtags
