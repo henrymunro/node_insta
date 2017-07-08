@@ -12,6 +12,8 @@ const _likePhoto = () => {
 				if(!liked){
 					 return likeImage()
 				}
+			}).catch(err => {
+				throw new Error(err)
 			})
 	}
 

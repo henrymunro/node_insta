@@ -46,11 +46,11 @@ const scrapeHashtags = ({hashtags}) => {
 			}, (err, result) => {
 				if (err) {
 					logger.error('Error looping over hashtags', err)
-					reject()
+					return reject()
 				} else {
 					logger.info('Finished looping over hashtags')
 					databaseApi.applicationInfo.logRunComplete({runID})
-					resolve()
+					return resolve()
 				}
 			})
 		})
