@@ -1,22 +1,29 @@
+const {logger} = require('../../../global_modules/logger')
 
-console.log('Loading in webdriver')
-const webdriver = require('selenium-webdriver'),
-    By = webdriver.By,
-    promise = webdriver.promise,
-    until = webdriver.until
-    Key = webdriver.Key;
 
-const chrome = require('selenium-webdriver/chrome')
-const options = new chrome.Options()
-options.setUserPreferences( { credentials_enable_service: false } )
-options.addArguments("--headless")
+try {
+    logger.info('Loading in webdriver')
+    var webdriver = require('selenium-webdriver'),
+        By = webdriver.By,
+        promise = webdriver.promise,
+        until = webdriver.until
+        Key = webdriver.Key;
 
-const driver = new webdriver.Builder().
-		setChromeOptions(options).
-        withCapabilities(webdriver.Capabilities.chrome()).
-        build()
+    var chrome = require('selenium-webdriver/chrome')
+    var options = new chrome.Options()
+    options.setUserPreferences( { credentials_enable_service: false } )
+    options.addArguments("--headless")
 
-const driverBundle = {driver, By, until, Key, promise}
+    var driver = new webdriver.Builder().
+    		setChromeOptions(options).
+            withCapabilities(webdriver.Capabilities.chrome()).
+            build()
+
+    var driverBundle = {driver, By, until, Key, promise}
+} catch (err) {
+    logger.error(`Error loading in webdriver: ${err}`)
+    throw new Error(err)
+}
 
 
 // Load in modules
