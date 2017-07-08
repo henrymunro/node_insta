@@ -7,7 +7,7 @@ export default class AppStatusOverview extends React.Component {
 
   render () {
     return <div className='row'>
-        <p>Start Time: {moment(new Date(this.props.startTime)).format('Do-MMM-YY')}</p>
+        <p>Start Time: {moment(new Date(this.props.startTime)).format("YYYY-MM-DD HH:mm:ss")}</p>
         <div className="col s4 m4 l4">
             Total To Inspect: {this.props.totalToLike}
         </div>

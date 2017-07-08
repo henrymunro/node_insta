@@ -16,7 +16,8 @@ import Hashtag from './Hashtag'
     currentAppInfo: selectors.getCurrentAppInfo(store),
     currentPercentageDone: selectors.getCurrentPercentageDone(store),
     applicationRunError: selectors.getApplicationRunError(store),
-    applicationRunDone: selectors.getApplicationRunDone(store)
+    applicationRunDone: selectors.getApplicationRunDone(store),
+    skip: selectors.getSkip(store)
   }
 }, Object.assign({}, actions))
 
@@ -49,12 +50,18 @@ export default class AppStatus extends React.Component {
     clearInterval(this.interval)
   }
 
+  getPreviousAppInfo () {
+    this.props.getPreviousAppInfo(this.props.skip)
+    this.props.updateAppStatusProp({skip: Number(this.props.skip) + 1})
+  }
+
   render () {
 
     const { currentAppInfo, applicationRunError, applicationRunDone } = this.props
     const { hashtags } = currentAppInfo
 
     return <div className='container'>
+      <h5 onClick={this.getPreviousAppInfo.bind(this)}>Skip: {this.props.skip}</h5>
       {applicationRunError && <h3 style={{color: 'red'}}>AN ERROR HAS OCCOURED</h3>}
       {applicationRunDone && <h3 style={{color: 'green'}}>FINISHED</h3>}
       <AppStatusOverview {...currentAppInfo} percentageComplete={this.props.currentPercentageDone}/>

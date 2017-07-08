@@ -33,7 +33,7 @@ db.on('connected', function () {
 // If the connection throws an error
 db.on('error', (err) => {
   logError(err, 'Error connecting to database', loggerModule)
-  throw new Error(err)
+  // throw new Error(err)
 })
 
 // When the connection is disconnected

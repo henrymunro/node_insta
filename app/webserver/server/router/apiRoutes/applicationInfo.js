@@ -10,4 +10,8 @@ module.exports = function (apiRoute) {
   apiRoute.route(routeURI)
 .get((req, res, next) => appRoutes.getEntries(req, res, next, {limit: 1, sort: {startTime: -1} }))
 
+
+  apiRoute.route(`${routeURI}/skip/:skip`)
+.get((req, res, next) => appRoutes.getEntries(req, res, next, {limit: 1, sort: {startTime: -1}, skip: Number(req.params.skip) }))
+
 }

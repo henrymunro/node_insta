@@ -212,8 +212,6 @@ const incrementImageInspectCount = ({type, hashtag, username, runID}) => {
 	}
 }
 
-
-
 module.exports = { 
 	logNewRun, 
 	logError,
