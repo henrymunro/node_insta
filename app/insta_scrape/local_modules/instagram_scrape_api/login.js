@@ -28,7 +28,9 @@ module.exports = ({driver, By, until}) => () => {
 	const _fillInUsername = () => {
 		// Type username
 		logger.debug('Inputting username')
-		return driver.findElement(By.name('username')).sendKeys(config.credentials.username)
+		// return driver.findElement(By.name('username')).sendKeys(config.credentials.username)
+		// WORK AROUND AS SENDKEYS WILL NOT WORK UNTILL CROMEDRIVER 2.31
+		return driver.executeScript( arguments[0].setAttribute("value", config.credentials.username), driver.findElement(By.name('username')) )
 	}
 
 	const _fillInPassword = () => {
