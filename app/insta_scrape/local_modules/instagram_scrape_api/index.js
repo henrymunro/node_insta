@@ -1,3 +1,5 @@
+
+console.log('Loading in webdriver')
 const webdriver = require('selenium-webdriver'),
     By = webdriver.By,
     promise = webdriver.promise,
@@ -7,6 +9,7 @@ const webdriver = require('selenium-webdriver'),
 const chrome = require('selenium-webdriver/chrome')
 const options = new chrome.Options()
 options.setUserPreferences( { credentials_enable_service: false } )
+options.addArguments("--headless")
 
 const driver = new webdriver.Builder().
 		setChromeOptions(options).
@@ -14,6 +17,7 @@ const driver = new webdriver.Builder().
         build()
 
 const driverBundle = {driver, By, until, Key, promise}
+
 
 // Load in modules
 const login = require('./login')(driverBundle)
