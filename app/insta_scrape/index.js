@@ -47,8 +47,10 @@ const hashtags = [
 	// }
 ]
 
+if(process.env.SCRAPE === 'true') {
+	scrapeHashtags({hashtags})
+}
 
-// scrapeHashtags({hashtags})
 
 module.exports = {
 	scrapeHashtags

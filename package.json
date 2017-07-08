@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "scrape": "node app/insta_scrape/index.js",
+    "scrape": "SCRAPE=true node app/insta_scrape/index.js",
     "server": "nodemon app/webserver/server/bin/www",
     "webpack-watch": "webpack --watch"
   },
