@@ -17,17 +17,15 @@ if (env === 'development') {
 }
 
 mongoose.connect(connectionURL)
-// mongoose.connect("mongodb://HenryAdmin:Ly3w3nqG5O0QL1ps@henrymunro-shard-00-00-lqexw.mongodb.net:27017,henrymunro-shard-00-01-lqexw.mongodb.net:27017,henrymunro-shard-00-02-lqexw.mongodb.net:27017/admin?ssl=true&replicaSet=HenryMunro-shard-0&authSource=admin")
 mongoose.Promise = global.Promise
 
-console.log(connectionURL)
 // Test connection to DB
 const db = mongoose.connection
 
 // CONNECTION EVENTS
 // When successfully connected
 db.on('connected', function () {
-  logger.info(`Mongoose default connection open to ${config.URL}`, {loggerModule, connectionURL, type: 'database'})
+  logger.info(`Mongoose default connection open to ${config.URL}`, {loggerModule, type: 'database'})
 })
 
 // If the connection throws an error

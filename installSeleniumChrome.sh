@@ -38,3 +38,13 @@ wget -N http://selenium-release.storage.googleapis.com/3.0/selenium-server-stand
 sudo mv -f ~/selenium-server-standalone-3.0.1.jar /usr/local/share/
 sudo chmod +x /usr/local/share/selenium-server-standalone-3.0.1.jar
 sudo ln -s /usr/local/share/selenium-server-standalone-3.0.1.jar /usr/local/bin/selenium-server-standalone-3.0.1.jar
+
+
+## Work around for headless chrome not working untill version 2.31
+# run X Frame Xvfb 
+# https://gist.github.com/alonisser/11192482
+sudo apt-get -y install xvfb gtk2-engines-pixbuf
+sudo apt-get -y install xfonts-cyrillic xfonts-100dpi xfonts-75dpi xfonts-base xfonts-scalable
+echo "Starting X virtual framebuffer (Xvfb) in background..."
+Xvfb -ac :99 -screen 0 1280x1024x16 &
+export DISPLAY=:99
