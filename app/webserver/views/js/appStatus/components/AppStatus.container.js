@@ -27,7 +27,7 @@ export default class AppStatus extends React.Component {
     super(props)
     this.interval = setInterval(() => {
       this.props.getCurrentAppInfo()
-    }, 1000)
+    }, 5000)
   }
 
   componentWillReceiveProps (nextProps, nextState){
