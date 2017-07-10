@@ -135,6 +135,7 @@ module.exports = ({driver, By, until, promise}) => {
 				logger.info(config.enableLike ? 'Liking image!' : 'Dummy liking image')
 				config.enableLike && driver.findElement(By.className(config.paths.likeImageClass)).click()
 			} catch (err) {
+				logger.error('Error liking image')
 				return reject(err)
 			}
 

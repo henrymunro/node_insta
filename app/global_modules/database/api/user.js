@@ -19,7 +19,7 @@ const _addNewUser = ({username}) => {
 						logger.error('Error saving new user to DB' , {err})
 						reject(err)
 					} else { 
-						logger.silly('New user details saved to DB', {entry})
+						logger.silly('New user details saved to DB', {username})
 						resolve()
 					}
 				})
