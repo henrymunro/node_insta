@@ -8,6 +8,7 @@ const helmet = require('helmet') // Security Module
 const app = express()
 const path = require('path')
 const {schedulerEnabled} = require('../../insta_scrape/config')
+const { scrapeHashtags } = require('../../insta_scrape')
 
 // Set up logger
 const { logger } = require('../../global_modules/logger')
