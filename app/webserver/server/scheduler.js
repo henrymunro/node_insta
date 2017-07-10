@@ -10,7 +10,7 @@ const _randNumGen = (min, max) => {
 }
 
 const _randTimeGen = () => {
-	const seconds = _randNumGen(60, 7200)
+	const seconds = _randNumGen(60, 3600)
   var now = new Date()
 	var runDate = new Date(now.getTime() + (1000 * seconds))
 	return {runDate, seconds}
