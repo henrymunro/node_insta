@@ -17,7 +17,8 @@ import Hashtag from './Hashtag'
     currentPercentageDone: selectors.getCurrentPercentageDone(store),
     applicationRunError: selectors.getApplicationRunError(store),
     applicationRunDone: selectors.getApplicationRunDone(store),
-    skip: selectors.getSkip(store)
+    skip: selectors.getSkip(store),
+    stopPoll: selectors.getStopPoll(store),
   }
 }, Object.assign({}, actions))
 
@@ -33,6 +34,11 @@ export default class AppStatus extends React.Component {
   componentWillReceiveProps (nextProps, nextState){
     // If applicaiton errors out stop polling the server
     if (!this.props.applicationRunError && nextProps.applicationRunError) {
+      clearInterval(this.interval)
+    }
+
+    // If stop poll is set to true (force stop poll on skip to previous run info)
+    if (!this.props.stopPoll && nextProps.stopPoll) {
       clearInterval(this.interval)
     }
 

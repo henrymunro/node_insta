@@ -4,12 +4,13 @@ import { updateObject } from '../reducers/reducerUtilities'
 
 const initialState = {
   currentAppInfo: {},
-  skip: 1
+  skip: 1,
+  stopPoll: false
 }
 
 const homeReducer = handleActions({
   GET_CURRENT_APP_INFO_FULFILLED: (state, action) => updateObject(state, { currentAppInfo: action.payload.data[0] }),
-  GET_PREVIOUS_APP_INFO_FULFILLED: (state, action) => updateObject(state, { currentAppInfo: action.payload.data[0] }),
+  GET_PREVIOUS_APP_INFO_FULFILLED: (state, action) => updateObject(state, { currentAppInfo: action.payload.data[0], stopPoll: true }),
   UPDATE_APP_STATUS_PROP: (state, action) => updateObject(state, action.payload)
 }, initialState)
 
@@ -25,3 +26,4 @@ export const getApplicationRunError = state => ((state.appStatus.currentAppInfo 
 export const getApplicationRunDone = state => ((state.appStatus.currentAppInfo || {}).done)
 
 export const getSkip = state => (state.appStatus.skip)
+export const getStopPoll = state => (state.appStatus.stopPoll)
