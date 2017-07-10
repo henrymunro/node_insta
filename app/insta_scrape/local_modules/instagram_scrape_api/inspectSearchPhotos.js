@@ -39,57 +39,72 @@ module.exports = ({driver, By, until, promise}) => {
 		const _getFieldInfo = (field) => {
 			// Pulls back the specific field based on class
 			return new Promise((resolve, reject) => {
-				logger.silly(`Getting ${field}`)
-				_checkElementExists(config.userInfoClass[field]).then(exist => {
-					if (exist){
-						driver.findElement(By.className(config.userInfoClass[field])).getText()
-							.then(output => {
-								logger.silly(`Got ${field}: ${output}`)
-								resolve({[field]: output})
-							}).catch(reject)
-					} else {
-						//Couldn't find username just ignore
-						resolve()
-					}
-				})
+				try {
+					logger.silly(`Getting ${field}`)
+					_checkElementExists(config.userInfoClass[field]).then(exist => {
+						if (exist){
+							driver.findElement(By.className(config.userInfoClass[field])).getText()
+								.then(output => {
+									logger.silly(`Got ${field}: ${output}`)
+									resolve({[field]: output})
+								}).catch(reject)
+						} else {
+							//Couldn't find username just ignore
+							resolve()
+						}
+					})
+				} catch (err) {
+					logger.error('Error getting field info', err)
+					reject(err)
+				}
 			})
 		}
 
 		const _getDate = () => {
 			// Pulls back the date the image was submitted
 			return new Promise((resolve, reject) => {
-				logger.silly('Getting date')
-				_checkElementExists(config.userInfoClass.date).then(exist => {
-					if (exist){
-						driver.findElement(By.className(config.userInfoClass.date)).getAttribute('datetime')
-							.then(output => {
-								logger.silly(`Got date: ${output}`)
-								resolve({date: new Date(output)})
-							}).catch(reject)
-					} else {
-						//Couldn't find date just ignore
-						resolve()
-					}
-				})
+				try {
+					logger.silly('Getting date')
+					_checkElementExists(config.userInfoClass.date).then(exist => {
+						if (exist){
+							driver.findElement(By.className(config.userInfoClass.date)).getAttribute('datetime')
+								.then(output => {
+									logger.silly(`Got date: ${output}`)
+									resolve({date: new Date(output)})
+								}).catch(reject)
+						} else {
+							//Couldn't find date just ignore
+							resolve()
+						}
+					})
+				} catch (err) {
+					logger.error('Error getting date', err)
+					reject(err)
+				}
 			})
 		}
 
 		const _getImage = () => {
 			// Pulls back the url of the image
 			return new Promise((resolve, reject) => {
-				logger.silly('Getting image url')
-				_checkElementExists(config.userInfoClass.image).then(exist => {
-					if (exist){
-						driver.findElement(By.className(config.userInfoClass.image)).getAttribute('src')
-							.then(output => {
-								logger.silly(`Got image url: ${output}`)
-								resolve({url: output})
-							}).catch(reject)
-					} else {
-						//Couldn't find image just ignore
-						resolve()
-					}
-				})
+				try {
+					logger.silly('Getting image url')
+					_checkElementExists(config.userInfoClass.image).then(exist => {
+						if (exist){
+							driver.findElement(By.className(config.userInfoClass.image)).getAttribute('src')
+								.then(output => {
+									logger.silly(`Got image url: ${output}`)
+									resolve({url: output})
+								}).catch(reject)
+						} else {
+							//Couldn't find image just ignore
+							resolve()
+						}
+					})					
+				} catch (err) {
+					logger.error('Error getting image url', err)
+					reject(err)
+				}
 			})
 		}
 
@@ -131,22 +146,27 @@ module.exports = ({driver, By, until, promise}) => {
 
 	const moveToTheNextImage = () => {
 		return new Promise((resolve, reject) => {
-			// Presses the arrow to move to the next image after waiting some random time between 2 and 5 seconds
-			const randomTime = Math.floor(Math.random() * 3000) + 2501 
-			logger.debug('Moving to next image')
-			logger.info(`Waiting ${randomTime}ms`)
+			try {
+				// Presses the arrow to move to the next image after waiting some random time between 2 and 5 seconds
+				const randomTime = Math.floor(Math.random() * 3000) + 2501 
+				logger.debug('Moving to next image')
+				logger.info(`Waiting ${randomTime}ms`)
 
-			let nextPhotoArrowDoesNotExist = false
-			_checkElementExists(config.paths.nextPhotoArrowClass)
-				.then(exists => {
-					nextPhotoArrowDoesNotExist = !exists
-					if (exists) {
-						return driver.findElement(By.className(config.paths.nextPhotoArrowClass)).click()
-					} 
-				})
-			setTimeout(() => {
-				resolve({nextPhotoArrowDoesNotExist})
-			}, randomTime)
+				let nextPhotoArrowDoesNotExist = false
+				_checkElementExists(config.paths.nextPhotoArrowClass)
+					.then(exists => {
+						nextPhotoArrowDoesNotExist = !exists
+						if (exists) {
+							return driver.findElement(By.className(config.paths.nextPhotoArrowClass)).click()
+						} 
+					})
+				setTimeout(() => {
+					resolve({nextPhotoArrowDoesNotExist})
+				}, randomTime)
+			} catch (err) {
+				logger.error('Error moving to the next image', err)
+				reject(err)
+			}
 		})
 	}
 
@@ -164,7 +184,7 @@ module.exports = ({driver, By, until, promise}) => {
 			     				logger.silly(`Element ${className} DOES exist`)
 			     				resolve(true)
 			     			}
-			     		}).catch(err => reject(err))
+			     		}).catch(reject)
 		
 		})
 	} 
