@@ -133,15 +133,34 @@ module.exports = ({driver, By, until, promise}) => {
 			try {
 				// Likes the image
 				logger.info(config.enableLike ? 'Liking image!' : 'Dummy liking image')
-				config.enableLike && driver.findElement(By.className(config.paths.likeImageClass)).click()
+
+				// If the appication is approved to actually like images 
+				if (config.enableLike ) {
+					// Check to make sure the image like element exists 
+					_checkElementExists(config.paths.likeImageClass)
+					.then(exist => {
+						if (!exist) {	
+							logger.error('Could not find the like image element')						
+							return reject(err)
+						} else {
+							// If element exists like image
+							driver.findElement(By.className(config.paths.likeImageClass)).click()
+							// Pull back the image info for the db
+							logger.silly('Pulling back image info')
+							return resolve(_getImageInfo())
+						}
+					})
+				} else {
+					// Pull back the image info for the db
+					logger.silly('Pulling back image info')
+					return resolve(_getImageInfo())
+				}
+
 			} catch (err) {
 				logger.error('Error liking image')
 				return reject(err)
 			}
-
-			// Pull back the image info for the db
-			logger.silly('Pulling back image info')
-			resolve(_getImageInfo())
+			
 		})
 	}
 

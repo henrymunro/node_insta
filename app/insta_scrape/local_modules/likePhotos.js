@@ -79,7 +79,8 @@ const _likePhotos = ({count, probability, type, hashtag, runID, username}) => {
 		}, (err, results) => {
 			if (err) {
 				logger.error('Error looping over photos', {err})
-				reject(err)
+				// On error for one run continue onto next user/hashtag search 
+				resolve(results)
 			} else { 
 				logger.info('Finsihed looping over photos')
 				resolve(results)

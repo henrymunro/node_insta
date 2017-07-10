@@ -12,7 +12,7 @@ try {
     var chrome = require('selenium-webdriver/chrome')
     var options = new chrome.Options()
     options.setUserPreferences( { credentials_enable_service: false } )
-    options.addArguments("--headless")
+    // options.addArguments("--headless")
 
     var driver = new webdriver.Builder().
     		setChromeOptions(options).
