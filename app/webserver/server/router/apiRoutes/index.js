@@ -7,7 +7,7 @@ require('./applicationInfo')(apiRoutes)
 require('./appRunDetails')(apiRoutes)
 
 // Run the application 
-require('./runApp')(apiRoutes)
+// require('./runApp')(apiRoutes)
 
 
 module.exports = apiRoutes

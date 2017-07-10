@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node  app/webserver/server/bin/www",
     "scrape": "SCRAPE=true node app/insta_scrape/index.js",
     "server": "nodemon app/webserver/server/bin/www",
     "webpack-watch": "webpack --watch"
@@ -25,6 +26,7 @@
     "joi": "^10.6.0",
     "moment": "^2.18.1",
     "mongoose": "4.10.2",
+    "node-schedule": "^1.2.3",
     "random-key": "^0.3.2",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",

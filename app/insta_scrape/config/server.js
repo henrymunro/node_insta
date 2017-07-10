@@ -13,6 +13,11 @@ const envVarsSchema = joi.object({
   LOGGER_LEVEL: joi.string()
     .allow(['error', 'warn', 'info', 'verbose', 'debug', 'silly'])
     .default('info'),
+  SCHEDULER_ENABLED: joi.boolean().required()
+    .truthy('TRUE')
+    .truthy('true')
+    .falsy('FALSE')
+    .falsy('false'),
 }).unknown()
   .required()
 
@@ -23,6 +28,7 @@ if (error) {
 
 const config = {
   NODE_ENV: envVars.NODE_ENV,
+  schedulerEnabled: envVars.SCHEDULER_ENABLED,
   logger: {
     level: envVars.LOGGER_LEVEL,
     enabled: envVars.LOGGER_ENABLED
