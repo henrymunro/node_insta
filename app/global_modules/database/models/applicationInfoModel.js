@@ -4,6 +4,7 @@ const Schema = mongoose.Schema
 // set up a mongoose model and pass it using module.exports
 module.exports = mongoose.model('ApplicationInfo', new Schema({
   hashtags: [],
+  username: {type: String, default: 'henrymunro'},
   finishTime: {type: Date},
   done: {type: Boolean, default: false},
   totalToLike: {type: Number},
