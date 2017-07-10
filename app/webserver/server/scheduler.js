@@ -2,8 +2,8 @@ const schedule = require('node-schedule')
 const { logger } = require('../../global_modules/logger')
 const moment = require('moment')
 const { scrapeHashtags } = require('./../../insta_scrape')
+const { morningHour, morningMinute, eveningHour, eveningMinute } = require('../../insta_scrape/config').scrapeScheduler
 
-logger.info('Loading in schedule component')
 
 const _randNumGen = (min, max) => {
 	return Math.floor(Math.random() * (max - min)) + 1 + min 
@@ -17,13 +17,16 @@ const _randTimeGen = () => {
 }
 
 var morningRule = new schedule.RecurrenceRule()
-morningRule.hour = 1
-morningRule.minute = 53
+morningRule.hour = Number(morningHour) || 1
+morningRule.minute = Number(morningMinute) || 0
 
 var eveningRule = new schedule.RecurrenceRule()
-eveningRule.hour = 21
+eveningRule.hour = Number(eveningHour) || 21 
+eveningRule.minute = Number(eveningMinute) || 0
 
  
+logger.info('Loading in schedule component', {morning: `${Number(morningHour) || 1}:${Number(morningMinute) || 0}`, evening:`${Number(eveningHour) || 21}:${Number(eveningMinute) || 0}`  })
+
 
 // Reccuring schedule to run every morning 
 const morningSchedule = schedule.scheduleJob(morningRule, function(){

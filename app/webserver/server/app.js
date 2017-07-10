@@ -7,7 +7,7 @@ const favicon = require('serve-favicon')
 const helmet = require('helmet') // Security Module
 const app = express()
 const path = require('path')
-const {schedulerEnabled} = require('../../insta_scrape/config')
+const schedulerEnabled = require('../../insta_scrape/config').scrapeScheduler.enabled
 const { scrapeHashtags } = require('../../insta_scrape')
 
 // Set up logger
