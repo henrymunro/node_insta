@@ -17,8 +17,8 @@ const _randTimeGen = () => {
 }
 
 var morningRule = new schedule.RecurrenceRule()
-morningRule.hour = 2
-morningRule.minute = 50
+morningRule.hour = 1
+morningRule.minute = 53
 
 var eveningRule = new schedule.RecurrenceRule()
 eveningRule.hour = 21
