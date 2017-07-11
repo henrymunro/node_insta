@@ -17,6 +17,8 @@ try {
     if (headlessChrome) {
         logger.info('Setting chrome headless')
         options.addArguments("--headless")
+    } else {
+        logger.info('CHROME NOT RUNNING IN HEADLESS MODE')
     }
 
     var driver = new webdriver.Builder().
