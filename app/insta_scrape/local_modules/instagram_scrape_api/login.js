@@ -6,6 +6,7 @@
 
 const config = require('../../config').login
 const {logger, logError} = require('../../../global_modules/logger')
+const async = require('async')
 
 module.exports = ({driver, By, until}) => () => {
 
@@ -62,19 +63,61 @@ module.exports = ({driver, By, until}) => () => {
 		})
 	}
 
-	return new Promise((resolveLogin, rejectLogin) => {
+	const _performLogin = () => {
+		return new Promise((resolveLogin, rejectLogin) => {
+			logger.debug('Attempting login')
+			_getHomePage()
+				.then(_navigateToExisitingUserLogin)
+				.then(_fillInUsername)
+				.then(_fillInPassword)
+				.then(_clickLoginbutton)
+				.then(_checkLoginSuccessful)
+				.then(() => { return resolveLogin({success: true})})
+				.catch(err => {
+					logger.error('An error has occoured in the login process', err )
+					rejectLogin()
+				})
+		})
+	}
+
+
+
+	// Attempt to perform login until successful or max retries
+	return new Promise((resolveOuterLogin, rejectOuterLogin) => {
 		logger.info('Starting Login Process')
-		_getHomePage()
-			.then(_navigateToExisitingUserLogin)
-			.then(_fillInUsername)
-			.then(_fillInPassword)
-			.then(_clickLoginbutton)
-			.then(_checkLoginSuccessful)
-			.then(resolveLogin)
-			.catch(err => {
-				logger.error('An error has occoured in the login process', err )
-				rejectLogin()
-			})
+		let retryCount = 1 
+		let loginSuccess = false
+
+		// Async loop over login attempts
+		async.whilst(
+		    function() { return !(loginSuccess || retryCount > 5) },
+		    (callback) => {
+		        _performLogin()
+					.then(({success}) => {
+					loginSuccess = success
+					return callback(undefined, success)
+				}).catch(err => {
+					logger.error('Loging attempt failed, retrying', err)
+					retryCount++
+					// If failed on the final retry return an error
+					if (retryCount > 5) {
+						return callback('Max loging attempts reached')
+					}
+					// Else return no error so whilst reruns
+					return callback(undefined)
+				})
+		    },
+		    function (err, n) {
+		        if (err){
+		        	logger.error('Max login retries met, aborting')
+		        	return rejectOuterLogin()
+		        }
+		        logger.debug(`Login attempt ${retryCount} successful`)
+		        return resolveOuterLogin()
+		    }
+		)
 	})
+	
+
 }
 

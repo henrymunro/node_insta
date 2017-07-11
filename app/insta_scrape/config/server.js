@@ -13,11 +13,12 @@ const envVarsSchema = joi.object({
   LOGGER_LEVEL: joi.string()
     .allow(['error', 'warn', 'info', 'verbose', 'debug', 'silly'])
     .default('info'),
-  SCHEDULER_ENABLED: joi.boolean().required()
+  HEADLESS_CHROME: joi.boolean()
     .truthy('TRUE')
     .truthy('true')
     .falsy('FALSE')
-    .falsy('false'),
+    .falsy('false')
+    .default(true),
 }).unknown()
   .required()
 
@@ -28,7 +29,7 @@ if (error) {
 
 const config = {
   NODE_ENV: envVars.NODE_ENV,
-  schedulerEnabled: envVars.SCHEDULER_ENABLED,
+  headlessChrome: envVars.HEADLESS_CHROME,
   logger: {
     level: envVars.LOGGER_LEVEL,
     enabled: envVars.LOGGER_ENABLED

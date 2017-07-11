@@ -47,15 +47,12 @@ sudo ln -s /usr/local/share/selenium-server-standalone-3.0.1.jar /usr/local/bin/
 sudo apt-get -y install xvfb gtk2-engines-pixbuf
 sudo apt-get -y install xfonts-cyrillic xfonts-100dpi xfonts-75dpi xfonts-base xfonts-scalable
 # echo "Starting X virtual framebuffer (Xvfb) in background..."
-Xvfb -ac :99 -screen 0 1280x1024x16 &
-export DISPLAY=:99
+# Xvfb -ac :99 -screen 0 1280x1024x16 &
+# export DISPLAY=:99
 
 ## Check to see if Xvfb is already running 
 # pidof /usr/bin/Xvfb
 # sub in value found above to below $pids
 # ps --format command --no-headers -ww --pid $pids
 
-## RUN USING XVFB script
-# put the contents of the gist as a file residing at /etc/init.d/xvfb
-# you'll probably need to make it executable chmod +x /etc/init.d/xvfb
-# and then you can start it with /etc/init.d/xvfb start
+

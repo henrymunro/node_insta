@@ -52,7 +52,10 @@ module.exports = ({driver, By, until, promise}) => {
 							//Couldn't find username just ignore
 							resolve()
 						}
-					})
+					}).catch(err => {
+						logger.error('Error checking if element exists')
+						reject(err)
+					})	
 				} catch (err) {
 					logger.error('Error getting field info', err)
 					reject(err)
@@ -76,7 +79,10 @@ module.exports = ({driver, By, until, promise}) => {
 							//Couldn't find date just ignore
 							resolve()
 						}
-					})
+					}).catch(err => {
+						logger.error('Error checking if element exists')
+						reject(err)
+					})	
 				} catch (err) {
 					logger.error('Error getting date', err)
 					reject(err)
@@ -100,6 +106,9 @@ module.exports = ({driver, By, until, promise}) => {
 							//Couldn't find image just ignore
 							resolve()
 						}
+					}).catch(err => {
+						logger.error('Error checking if element exists')
+						reject(err)
 					})					
 				} catch (err) {
 					logger.error('Error getting image url', err)
@@ -149,6 +158,9 @@ module.exports = ({driver, By, until, promise}) => {
 							logger.silly('Pulling back image info')
 							return resolve(_getImageInfo())
 						}
+					}).catch(err => {
+						logger.error('Error checking if like image element exists')
+						reject(err)
 					})
 				} else {
 					// Pull back the image info for the db
